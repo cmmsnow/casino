@@ -4,7 +4,14 @@ public class Display {
     Integer selection;
     Double betAmount;
 
-    public Integer welcomeMenu(){return selection;}
+    /**
+     * Need a menu for each separate game? Likely.
+     */
+
+    public Integer welcomeMenu(){
+
+        return selection;
+    }
 
     public Double getBetAmount(){return betAmount;}
 
