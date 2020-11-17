@@ -5,19 +5,6 @@ import java.util.Stack;
 
 public class DeckOfCards {
 
-//    public static void main(String[] args) {
-//        DeckOfCards testDeck = new DeckOfCards();
-//        testDeck.refreshDeck();
-//        testDeck.shuffleDeck();
-//        int count = 0;
-//        for (Card c : testDeck.deckOfCards) {
-//            System.out.println(c);
-//            count++;
-//        }
-//        System.out.println("\n" + testDeck.dealCard().toString());
-//        System.out.print("\nnumber of cards: " + count);
-//    }
-
     private Stack<Card> deckOfCards;
 
     public DeckOfCards() {
@@ -48,6 +35,6 @@ public class DeckOfCards {
         }
 
         this.deckOfCards = newDeck;
-
     }
+
 }
