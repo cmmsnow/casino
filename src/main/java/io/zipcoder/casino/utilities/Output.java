@@ -15,7 +15,7 @@ public class Output {
      * Quit casino goodbye
      */
 
-    public String printToScreen(String input){
+    public static String printToScreen(String input){
         System.out.println(input);
         return input;
     }
