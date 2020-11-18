@@ -3,17 +3,19 @@ package io.zipcoder.casino.Players;
 import io.zipcoder.casino.GameSupplies.Card;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Player {
 
-    public double wallet;
-    public String name = "";
-    public Map<String, ArrayList<Object>> jackets;
+    private double wallet;
+    private String name = "";
+    private HashMap<String, ArrayList<Object>> jackets;
 
     public Player(double wallet, String name) {
         this.wallet = wallet;
         this.name = name;
+        this.jackets = new HashMap<String, ArrayList<Object>>();
     }
 
     public double getWallet() {
@@ -32,13 +34,11 @@ public class Player {
         this.name = name;
     }
 
-    public Map<String, ArrayList<Object>> getJackets() {
-        return jackets;
-    }
-
-    public void setJackets(Map<String, ArrayList<Object>> jackets) {
+    public void setJackets(HashMap<String, ArrayList<Object>> jackets) {
         this.jackets = jackets;
     }
+
+
 
 
 }

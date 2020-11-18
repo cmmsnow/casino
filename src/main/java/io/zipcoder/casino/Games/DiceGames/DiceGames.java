@@ -1,6 +1,15 @@
 package io.zipcoder.casino.Games.DiceGames;
 
 import io.zipcoder.casino.GameSupplies.Dice;
+import io.zipcoder.casino.Games.GameInterface;
 
-public class DiceGames {
+
+public class DiceGames implements GameInterface {
+    public void playGame() {
+
+    }
+
+    public boolean endGame() {
+        return false;
+    }
 }
