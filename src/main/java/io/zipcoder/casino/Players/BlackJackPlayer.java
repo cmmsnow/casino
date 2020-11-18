@@ -28,4 +28,8 @@ public class BlackJackPlayer implements GamblingPlayerInterface{
     public double placeBet() {
         return 0;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

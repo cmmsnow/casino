@@ -10,4 +10,8 @@ public class ChoHanPlayer  {
         this.name = player.getName();
         this.player = player;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
