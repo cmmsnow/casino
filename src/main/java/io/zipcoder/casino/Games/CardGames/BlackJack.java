@@ -17,52 +17,47 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
     private Integer dealerTotal = 0;
     private boolean powerOn = true;
     private boolean hitCheck = true;
+    private Output output = new Output();
 
     public BlackJack(BlackJackPlayer blackJackPlayer) {
         this.blackJackPlayer = blackJackPlayer;
     }
 
-    Scanner scanner = new Scanner(System.in);
-
     public double bet(double betVal) {
         return betVal;
     }
 
-    //Override this
-    public void play() {
+    @Override
+    public void playGame() {
 
-//        Console.println("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
-//
-//        while(powerOn) {
-//            Console.println("\nPlease select from the following options:\n" +
-//                    "1 - Play a game of Blackjack\n" +
-//                    "2 - Quit Blackjack\n" +
-//                    "---------------------------------\n");
-//
-//            Console.getNextInt("Enter choice here -> ");
-//
-//            try {
-//
-//            } catch (InputMismatchException e) {
-//                scanner.next();
-//                Console.println("\n" + "Incorrect option chosen, please choose one of the menu options below.");
-//
-//            }
-//
-//
-//        }
+        output.printToScreen("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
+
+        while(powerOn) {
+            output.printToScreen("\nPlease select from the following options:\n" +
+                    "1 - Play a game of Blackjack\n" +
+                    "2 - Quit Blackjack\n" +
+                    "---------------------------------\n");
+
+            int input = Input.getIntInput("Enter choice here -> ");
+
+            try {
+
+            } catch (InputMismatchException e) {
+                output.printToScreen("\n" + "Incorrect option chosen, please choose one of the menu options below.");
+
+            }
+
+
+        }
 
 
 
     }
 
-
-
-
-
-
-
-
+    @Override
+    public boolean endGame() {
+        return false;
+    }
 
 
     public Integer getPlayerTotal() {
