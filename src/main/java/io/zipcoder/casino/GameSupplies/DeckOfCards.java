@@ -25,6 +25,9 @@ public class DeckOfCards {
         return deckOfCards.pop();
     }
 
+    /**
+     * This code block creates the deck of cards
+     */
     private void refreshDeck() {
         Stack<Card> newDeck = new Stack<Card>();
         for (Rank r : Rank.values()) {
