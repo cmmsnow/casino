@@ -3,6 +3,8 @@ package io.zipcoder.casino.Games.CardGames;
 import io.zipcoder.casino.Games.GamblingGameInterface;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Players.GamblingPlayerInterface;
+import io.zipcoder.casino.utilities.Input;
+import io.zipcoder.casino.utilities.Output;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -29,26 +31,26 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
     //Override this
     public void play() {
 
-        Console.println("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
-
-        while(powerOn) {
-            Console.println("\nPlease select from the following options:\n" +
-                    "1 - Play a game of Blackjack\n" +
-                    "2 - Quit Blackjack\n" +
-                    "---------------------------------\n");
-
-            Console.getNextInt("Enter choice here -> ");
-
-            try {
-
-            } catch (InputMismatchException e) {
-                scanner.next();
-                Console.println("\n" + "Incorrect option chosen, please choose one of the menu options below.");
-
-            }
-
-
-        }
+//        Console.println("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
+//
+//        while(powerOn) {
+//            Console.println("\nPlease select from the following options:\n" +
+//                    "1 - Play a game of Blackjack\n" +
+//                    "2 - Quit Blackjack\n" +
+//                    "---------------------------------\n");
+//
+//            Console.getNextInt("Enter choice here -> ");
+//
+//            try {
+//
+//            } catch (InputMismatchException e) {
+//                scanner.next();
+//                Console.println("\n" + "Incorrect option chosen, please choose one of the menu options below.");
+//
+//            }
+//
+//
+//        }
 
 
 
