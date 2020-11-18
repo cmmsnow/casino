@@ -19,14 +19,9 @@ public class Input {
     }
 
     public static Integer getIntInput(String prompt) {
-        Integer userInput;
+
         System.out.print(prompt);
-        if(scan.hasNextInt()){
-            userInput = scan.nextInt();
-        }
-        else{
-            userInput = getIntInput("Incorrect input, try again:  ");
-        }
+        Integer userInput = scan.nextInt();
         return userInput;
     }
 

@@ -17,6 +17,7 @@ public final class Console {
         this.output = out;
     }
 
+
     public void print(String val, Object... args) {
         output.format(val, args);
     }
