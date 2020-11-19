@@ -25,7 +25,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         this.blackJackPlayer = blackJackPlayer;
         this.dealersHand = new ArrayList<Card>();
     }
-
+    Input input = new Input(System.in, System.out);
     @Override
     public void playGame() {
         Output.printToScreen("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
@@ -38,6 +38,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                     "---------------------------------\n");
 
             int input = Input.getIntInput("Enter choice here -> ");
+
             try {
                 switch (input) {
                     case 1:

@@ -3,6 +3,7 @@ package io.zipcoder.casino.GameSupplies;
 public class Dice {
     //Maybe only need 1 class for this?
 
+
     Integer faceValue;
     Integer summedFaceValue;
     Integer numOfDice;
@@ -28,3 +29,27 @@ public class Dice {
         this.numOfDice = numOfDice;
     }
 }
+
+
+
+
+
+
+
+
+
+/* private int die1;
+    private int die2;
+
+    public Dice(int i) {
+        roll();
+    }
+
+    public void roll(){
+        die1 = (int)(Math.random() * 6) + 1;
+        die2 = (int)(Math.random() * 6) + 1;
+    }
+
+    public int getDiceSum(){
+        return die1 + die2;
+    } */
