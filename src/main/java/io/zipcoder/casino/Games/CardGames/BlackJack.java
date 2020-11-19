@@ -12,6 +12,8 @@ import java.util.InputMismatchException;
 
 public class BlackJack extends CardGames implements GamblingGameInterface {
 
+    Input input = new Input(System.in, System.out);
+
     private BlackJackPlayer blackJackPlayer;
     private ArrayList<Card> dealersHand;
     private Integer playerTotal = 0;
@@ -25,7 +27,8 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         this.blackJackPlayer = blackJackPlayer;
         this.dealersHand = new ArrayList<Card>();
     }
-    Input input = new Input(System.in, System.out);
+
+// ---------------------------------------------------------------------------------------------------------------------
     @Override
     public void playGame() {
         Output.printToScreen("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
@@ -37,17 +40,17 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                     "3 - Quit Blackjack\n" +
                     "---------------------------------\n");
 
-            int input = Input.getIntInput("Enter choice here -> ");
+            int input1 = input.getIntegerInput("Enter choice here -> ");
 
             try {
-                switch (input) {
+                switch (input1) {
                     case 1:
                         takeBet();
                         dealHand(2);
                         handSum(); // BlackJackPlayer now has a hand of cards, need to evaluate the hand and then decide what to do
                         firstShow(); // Show results of the first round of cards
-                        hitOrStand();
-
+                        playerHitOrStand();
+                        dealerHitOrStand();
                         break;
                     case 2:
                         Output.printToScreen("Your current wallet balance is: " + blackJackPlayer.getWallet());
@@ -66,6 +69,8 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         }
     }
 
+// ---------------------------------------------------------------------------------------------------------------------
+
     public void handSum() {
         playerTotal += sum(blackJackPlayer.getBlackJackPlayerHand());
         dealerTotal += sum(getDealersHand());
@@ -80,17 +85,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         return count;
     }
 
-//    public void winConditions() {
-//        if (playerTotal > 21) {
-//            Output.printToScreen("DEALER WINS");
-//            Output.printToScreen("PLAYER BUSTS");
-//
-//        }
-//    }
-
-
-    // see what your hand totals and see the dealer's face up card
-    public void firstShow() {
+    public void firstShow() { // see what your hand totals and see the dealer's face up card
         Output.printToScreen("\nPLAYER: " + displayHand(blackJackPlayer));
         Output.printToScreen("\nPLAYER: " + playerTotal);
         Output.printToScreen("\n-----------------");
@@ -98,33 +93,31 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         Output.printToScreen("\nDEALER: " + getDealersHand().get(0).getValue().getSecondaryValue());
     }
 
-    public String displayHand(BlackJackPlayer blackJackPlayer) {
+    public String displayHand(BlackJackPlayer blackJackPlayer) { // gives nice output to the console
         String answer = "";
-
         for (int i = 0; i < blackJackPlayer.getBlackJackPlayerHand().size(); i++) {
                     Card card = blackJackPlayer.getBlackJackPlayerHand().get(i);
                     answer += card.toString();
             }
-
         return answer;
     }
 
-    // hit or stand
-    public void hitOrStand() {
-        if (getStateOfGame().equals(stateOfGame.UNDER)) {
+// ---------------------------------------------------------------------------------------------------------------------
+    public void playerHitOrStand() { // player hit or stand
+        if (playerStateOfGame().equals(stateOfGame.UNDER)) {
             Output.printToScreen("\nDo you want to 'hit' or 'stand'?");
-            String answer = Input.getStringInput("Type answer -> ");
+            String answer = input.getStringInput("Type answer -> ");
 
             if (answer.equals("hit")) {
                 blackJackPlayer.getBlackJackPlayerHand().add(getDeck().dealCard());
                 displayHand(blackJackPlayer);
-                hitOrStand();
+                playerHitOrStand();
             } else {
                 displayHand(blackJackPlayer);
                 // ***** need to evaluate player total against dealer total
             }
 
-        } else if (getStateOfGame().equals(stateOfGame.BLACKJACK)) {
+        } else if (playerStateOfGame().equals(stateOfGame.BLACKJACK)) {
             Output.printToScreen("\nPlayer wins!");
             blackJackPlayer.setWallet(blackJackPlayer.getWallet() + (2 * getCurrentWager()));
         } else {
@@ -133,10 +126,37 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         }
     }
 
-    public stateOfGame getStateOfGame() {
+    public stateOfGame playerStateOfGame() {
         if (sum(blackJackPlayer.getBlackJackPlayerHand()) > 21) {
             return stateOfGame.BUST;
         } else if (sum(blackJackPlayer.getBlackJackPlayerHand()) < 21) {
+            return stateOfGame.UNDER;
+        } else {
+            return stateOfGame.BLACKJACK;
+        }
+    }
+
+    public void dealerHitOrStand() { // dealer hit or stand
+        if (dealerStateOfGame().equals(stateOfGame.UNDER)) {
+            int dealerCount = sum(dealersHand);
+            if (dealerCount < 4 && dealerCount < 17) {
+                dealersHand.add(getDeck().dealCard());
+                dealerHitOrStand();
+            } else {
+                int dealersTotal = dealerTotal;
+                // ***** need to evaluate player total against dealer total
+            }
+        } else if (dealerStateOfGame().equals(stateOfGame.BLACKJACK)) {
+            Output.printToScreen("\nDealer wins!");
+        } else {
+            Output.printToScreen("\nDealer loses...");
+        }
+    }
+
+    public stateOfGame dealerStateOfGame() {
+        if (sum(dealersHand) > 21) {
+            return stateOfGame.BUST;
+        } else if (sum(dealersHand) < 21) {
             return stateOfGame.UNDER;
         } else {
             return stateOfGame.BLACKJACK;
@@ -147,23 +167,10 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         UNDER, BLACKJACK, BUST
     }
 
-    public void dealHand(int howManyCards) {
-        for (int i = 0; i < howManyCards; i++) {
-            dealersHand.add(getDeck().dealCard());
-            blackJackPlayer.getBlackJackPlayerHand().add(getDeck().dealCard());
-        }
-    }
-
-
-    @Override
-    public boolean endGame() {
-        return false;
-    }
-
-
+// ---------------------------------------------------------------------------------------------------------------------
     public void takeBet() {
         double betInput = 0.0;
-        betInput = Input.getDoubleInput("\nEnter the amount you would like to bet here -> ");
+        betInput = input.getDoubleInput("\nEnter the amount you would like to bet here -> ");
         if (betInput > blackJackPlayer.getWallet()) {
             Output.printToScreen("\nYou do not have enough to cover that bet.");
             takeBet();
@@ -174,6 +181,21 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         }
     }
 
+// ---------------------------------------------------------------------------------------------------------------------
+    public void dealHand(int howManyCards) {
+        for (int i = 0; i < howManyCards; i++) {
+            dealersHand.add(getDeck().dealCard());
+            blackJackPlayer.getBlackJackPlayerHand().add(getDeck().dealCard());
+        }
+    }
+
+// ---------------------------------------------------------------------------------------------------------------------
+    @Override
+    public boolean endGame() {
+        return false;
+    }
+
+// ---------------------------------------------------------------------------------------------------------------------
     public void setCurrentWager(double wager) {
         this.currentWager = wager;
     }
@@ -186,35 +208,11 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         return dealersHand;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Integer getPlayerTotal() {
-        return playerTotal;
+    public double payOut() {
+        return 0;
     }
 
-    public void setPlayerTotal(Integer playerTotal) {
-        this.playerTotal = playerTotal;
-    }
-
-    public Integer getDealerTotal() {
-        return dealerTotal;
-    }
-
-    public void setDealerTotal(Integer dealerTotal) {
-        this.dealerTotal = dealerTotal;
-    }
-
+// ---------------------------------------------------------------------------------------------------------------------
     public boolean isPowerOn() {
         return powerOn;
     }
@@ -223,19 +221,41 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         this.powerOn = powerOn;
     }
 
-    public boolean isHitCheck() {
-        return hitCheck;
-    }
-
-    public void setHitCheck(boolean hitCheck) {
-        this.hitCheck = hitCheck;
-    }
-
     public double bet() {
         return 0;
     }
 
-    public double payOut() {
-        return 0;
-    }
+
+
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+//    public Integer getPlayerTotal() {
+//        return playerTotal;
+//    }
+//
+//    public void setPlayerTotal(Integer playerTotal) {
+//        this.playerTotal = playerTotal;
+//    }
+//
+//    public Integer getDealerTotal() {
+//        return dealerTotal;
+//    }
+//
+//    public void setDealerTotal(Integer dealerTotal) {
+//        this.dealerTotal = dealerTotal;
+//    }
+//    public boolean isHitCheck() {
+//        return hitCheck;
+//    }
+//
+//    public void setHitCheck(boolean hitCheck) {
+//        this.hitCheck = hitCheck;
+//    }
+//    public void winConditions() {
+//        if (playerTotal > 21) {
+//            Output.printToScreen("DEALER WINS");
+//            Output.printToScreen("PLAYER BUSTS");
+//
+//        }
+//    }
