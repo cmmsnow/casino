@@ -6,7 +6,6 @@ import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.utilities.Input;
 import io.zipcoder.casino.utilities.Output;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -117,7 +116,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                 playerHitOrStand();
             } else {
                 displayHand(blackJackPlayer);
-                // ***** need to evaluate player total against dealer total
             }
 
         } else if (playerStateOfGame().equals(stateOfGame.BLACKJACK)) {
@@ -147,7 +145,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                 dealerHitOrStand();
             } else {
                 int dealersTotal = dealerTotal;
-                // ***** need to evaluate player total against dealer total
             }
         } else if (dealerStateOfGame().equals(stateOfGame.BLACKJACK)) {
             Output.printToScreen("\nDealer wins!");
@@ -250,10 +247,10 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
     public double bet() {
         return 0;
     }
-
-
-
 }
+
+
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 //    public Integer getPlayerTotal() {
