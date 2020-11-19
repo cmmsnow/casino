@@ -8,22 +8,27 @@ public class BlackJackPlayer implements GamblingPlayerInterface{
     private String name;
     private Player player;
     private double wallet;
-    private ArrayList<Card> hand;
+    private ArrayList<Card> playerHand;
 
     public BlackJackPlayer(Player player) {
         this.player = player;
         this.name = player.getName();
         this.wallet = player.getWallet();
-        this.hand = new ArrayList<Card>();
+        this.playerHand = new ArrayList<Card>();
+    }
+
+    public ArrayList<Card> getBlackJackPlayerHand() {
+        return playerHand;
     }
 
     public double getWallet() {
-        return 0;
+        return this.wallet;
     }
 
-    public void setWallet() {
-
+    public void setWallet(double amount) {
+        this.wallet = amount;
     }
+
 
     public double placeBet() {
         return 0;
