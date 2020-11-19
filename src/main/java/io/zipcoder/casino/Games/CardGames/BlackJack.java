@@ -28,7 +28,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         this.dealersHand = new ArrayList<Card>();
     }
 
-// ---------------------------------------------------------------------------------------------------------------------
+// --runs the game------------------------------------------------------------------------------------------------------
     @Override
     public void playGame() {
         Output.printToScreen("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
@@ -71,7 +71,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         }
     }
 
-// ---------------------------------------------------------------------------------------------------------------------
+// --shows result of first set of cards that were dealt, dealer shows one card------------------------------------------
 
     public void handSum() {
         playerTotal += sum(blackJackPlayer.getBlackJackPlayerHand());
@@ -104,7 +104,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         return answer;
     }
 
-// ---------------------------------------------------------------------------------------------------------------------
+// --based on first set of cards player and dealer decide what to do----------------------------------------------------
     public void playerHitOrStand() { // player hit or stand
         if (playerStateOfGame().equals(stateOfGame.UNDER)) {
             Output.printToScreen("\nDo you want to 'hit' or 'stand'?");
@@ -167,7 +167,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         UNDER, BLACKJACK, BUST
     }
 
-// ---------------------------------------------------------------------------------------------------------------------
+// --evaluates non-blackjack scenario-----------------------------------------------------------------------------------
     public void winConditions(){
         if(dealerTotal > playerTotal){
             Output.printToScreen("DEALER WINS");
@@ -175,6 +175,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                 }
         else if(dealerTotal < playerTotal){
             Output.printToScreen("PLAYER WINS");
+            blackJackPlayer.setWallet(blackJackPlayer.getWallet() + (2 * getCurrentWager()));
             printState();
             }
         else if(dealerTotal.equals(playerTotal)){
@@ -190,7 +191,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         Output.printToScreen("\nDEALER: " + dealerTotal);
     }
 
-// ---------------------------------------------------------------------------------------------------------------------
+// --take player bet, need to tie into interface method below-----------------------------------------------------------
     public void takeBet() {
         double betInput = 0.0;
         betInput = input.getDoubleInput("\nEnter the amount you would like to bet here -> ");
@@ -204,7 +205,11 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         }
     }
 
-// ---------------------------------------------------------------------------------------------------------------------
+    public double bet() {
+        return 0;
+    }
+
+// --deals cards at beginning of the game-------------------------------------------------------------------------------
     public void dealHand(int howManyCards) {
         for (int i = 0; i < howManyCards; i++) {
             dealersHand.add(getDeck().dealCard());
@@ -212,7 +217,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         }
     }
 
-// ---------------------------------------------------------------------------------------------------------------------
+// --need to incorporate this method------------------------------------------------------------------------------------
     @Override
     public boolean endGame() {
         return false;
@@ -242,10 +247,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
 
     public void setPowerOn(boolean powerOn) {
         this.powerOn = powerOn;
-    }
-
-    public double bet() {
-        return 0;
     }
 }
 
