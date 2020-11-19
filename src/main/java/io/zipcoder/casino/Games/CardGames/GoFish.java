@@ -23,6 +23,7 @@ public class GoFish extends CardGames implements GameInterface {
     public Scanner hold = new Scanner(System.in);
     private boolean gameOver;
     private boolean running;
+    private Input input = new Input(System.in, System.out);
 
 
     public GoFish (GoFishPlayer player) {
@@ -36,8 +37,6 @@ public class GoFish extends CardGames implements GameInterface {
         this.gameOver = false;
         this.running = true;
     }
-
-
 
 
         public void preamble () {
@@ -73,7 +72,6 @@ public class GoFish extends CardGames implements GameInterface {
 
         public void playGame () {
         //Deal starting hands, 7 cards each.
-        //Is it necessary to delete cards pulled out of deck from deck?
         for (int i = 0; i < 7; i++) {
             draw(playerHand);
             draw(dealerHand);
@@ -131,7 +129,7 @@ public class GoFish extends CardGames implements GameInterface {
     public boolean coinToss() {
 
         int toss = (int) (Math.floor(Math.random()*2));
-        int choice = Input.getIntInput("\n\nChoose heads or tails:\n" +
+        int choice = input.getIntegerInput("\n\nChoose heads or tails:\n" +
                 "~~~~~~~~~~~~~~1: Heads\n2: Tails");
 
         if (choice - 1 == toss) {
