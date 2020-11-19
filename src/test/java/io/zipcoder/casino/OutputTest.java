@@ -4,13 +4,17 @@ import io.zipcoder.casino.utilities.Input;
 import io.zipcoder.casino.utilities.Output;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.mock;
 
 public class OutputTest {
+
     @org.junit.Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
     }
 
     @org.junit.After

@@ -3,12 +3,22 @@ package io.zipcoder.casino;
 import io.zipcoder.casino.utilities.Input;
 import io.zipcoder.casino.utilities.Output;
 import org.junit.Assert;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.mock;
 
+//@RunWith(EasyMockRunner.class)
 public class InputTest {
+    @Mock
+    private Input input;
+
     @org.junit.Before
     public void setUp() throws Exception {
+        input = new Input(System.in, System.out);
+        MockitoAnnotations.initMocks(input);
     }
 
     @org.junit.After
@@ -17,12 +27,11 @@ public class InputTest {
 
     @org.junit.Test
     public void TestGetStringInput() throws Exception{
-        //Input input = new Input(System.in, System.out);
-        Input input = mock(Input.class);
-        when(input.getIntInput("prompt")).thenReturn("Yo");
+        //Input input = mock(Input.class);
+        Mockito.when(input.getIntInput("prompt")).thenReturn("Yo");
         String expected = "Yo";
         Boolean actual = output.getPlayerType();
-        Assert.assertEquals(,actual);
+        Assert.assertEquals(expected, actual);
     }
 
     @org.junit.Test
