@@ -1,5 +1,4 @@
 package io.zipcoder.casino.Players;
-import io.zipcoder.casino.GameSupplies.Card;
 
 
 public class ChoHanPlayer  {
@@ -12,6 +11,6 @@ public class ChoHanPlayer  {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 }
