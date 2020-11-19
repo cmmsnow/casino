@@ -16,7 +16,7 @@ public class ChoHan extends DiceGames {
 
 
 
-
+    Input input = new Input(System.in, System.out);
 
     public ChoHan(ChoHanPlayer choHanPlayer){
         this.choHanPlayer = choHanPlayer;
@@ -34,13 +34,13 @@ public class ChoHan extends DiceGames {
                     "1 - Cho (Even number total wins)\n" +
                     "2 - Han (Odd number total wins)\n" +
                     "----------------------------------------------\n");
-            int input = Input.getIntInput("Enter decision here -> ");
+            int gameInput = input.getIntegerInput("Enter decision here -> ");
 
             try {
 
-                if (input == 1){
+                if (gameInput == 1){
                     output.printToScreen("\nYou have chosen Cho (Evens)");
-                } else if (input == 2){
+                } else if (gameInput == 2){
                     output.printToScreen("\nYou have chosen Han (Odds)");
                 }
 
@@ -49,9 +49,9 @@ public class ChoHan extends DiceGames {
                 output.printToScreen("\n" + "Sorry! Please try again and choose a valid option.");
             }
 
-            if ((dice.tossAndSum(2) % 2) == 0 && input == 1) {
+            if ((dice.tossAndSum(2) % 2) == 0 && gameInput == 1) {
                 output.printToScreen("\nCongrats you win!!");
-            } else if (dice.tossAndSum(2) % 2 != 0 && input == 2) {
+            } else if (dice.tossAndSum(2) % 2 != 0 && gameInput == 2) {
                 output.printToScreen("\nCongrats you win!!");
             } else {
                 output.printToScreen("\nSorry you lose! Better luck next time");
