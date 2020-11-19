@@ -4,7 +4,7 @@ public interface GamblingPlayerInterface {
 
     double getWallet();
 
-    void setWallet();
+    void setWallet(double amount);
 
     double placeBet();
 }
