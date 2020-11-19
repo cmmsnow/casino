@@ -26,7 +26,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
     public double bet(double betVal) {
         return betVal;
     }
-
+    Input input = new Input(System.in, System.out);
     @Override
     public void playGame() {
 
@@ -38,7 +38,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                     "2 - Quit Blackjack\n" +
                     "---------------------------------\n");
 
-            int input = Input.getIntInput("Enter choice here -> ");
+            int inputGame = input.getIntegerInput("Enter choice here -> ");
 
             try {
 

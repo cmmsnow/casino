@@ -71,11 +71,14 @@ public class Switchboard {
                     break;
                 case 2:
                     GoFishPlayer goFishPlayer = new GoFishPlayer(currentPlayer);
-                   // GoFish goFish = new GoFish(goFishPlayer);
+                    //GoFish goFish = new GoFish(goFishPlayer);
                     break;
                 case 3:
                     ChoHanPlayer choHanPlayer = new ChoHanPlayer(currentPlayer);
                     ChoHan choHan = new ChoHan(choHanPlayer);
+                    while (!choHan.playGame()){
+                        choHan.playGame();
+                    }
                     break;
                 case 4:
                     CrapsPlayer crapsPlayer = new CrapsPlayer(currentPlayer);
@@ -107,6 +110,9 @@ public class Switchboard {
             case 2:
                 ChoHanPlayer choHanPlayer = new ChoHanPlayer(currentPlayer);
                 ChoHan choHan = new ChoHan(choHanPlayer);
+                while (!choHan.playGame()){
+                    choHan.playGame();
+                }
                 break;
             case 3:
                 isGambler = true;

@@ -16,13 +16,11 @@ public class DiceGames implements GameInterface {
 
     }
 
-    public void rollDice(){
-    }
-
-    public void playGame() {
+/*
+    public boolean playGame() {
 
     }
-
+*/
 
 
     public boolean endGame() {
