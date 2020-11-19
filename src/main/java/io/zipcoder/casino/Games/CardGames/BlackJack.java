@@ -6,6 +6,7 @@ import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.utilities.Input;
 import io.zipcoder.casino.utilities.Output;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -51,6 +52,8 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                         firstShow(); // Show results of the first round of cards
                         playerHitOrStand();
                         dealerHitOrStand();
+                        handSum(); // if there is no blackjack result
+                        winConditions(); // evaluate dealer and blackjack player hands
                         break;
                     case 2:
                         Output.printToScreen("Your current wallet balance is: " + blackJackPlayer.getWallet());
@@ -165,6 +168,29 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
 
     public enum stateOfGame {
         UNDER, BLACKJACK, BUST
+    }
+
+// ---------------------------------------------------------------------------------------------------------------------
+    public void winConditions(){
+        if(dealerTotal > playerTotal){
+            Output.printToScreen("DEALER WINS");
+            printState();
+                }
+        else if(dealerTotal < playerTotal){
+            Output.printToScreen("PLAYER WINS");
+            printState();
+            }
+        else if(dealerTotal.equals(playerTotal)){
+            Output.printToScreen("PLAYER WINS");
+            printState();
+            }
+    }
+
+    public void printState() {
+        Output.printToScreen("\nPLAYER: " + displayHand(blackJackPlayer));
+        Output.printToScreen("\nPLAYER: " + playerTotal);
+        Output.printToScreen("\n-----------------");
+        Output.printToScreen("\nDEALER: " + dealerTotal);
     }
 
 // ---------------------------------------------------------------------------------------------------------------------
