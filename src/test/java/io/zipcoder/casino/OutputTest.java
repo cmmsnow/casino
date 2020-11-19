@@ -1,12 +1,9 @@
 package io.zipcoder.casino;
 
-import io.zipcoder.casino.utilities.Input;
 import io.zipcoder.casino.utilities.Output;
 import org.junit.Assert;
-import org.mockito.Mockito.*;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class OutputTest {
     @org.junit.Before
