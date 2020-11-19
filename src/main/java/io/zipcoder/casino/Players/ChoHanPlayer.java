@@ -1,5 +1,4 @@
 package io.zipcoder.casino.Players;
-import io.zipcoder.casino.GameSupplies.Card;
 
 
 public class ChoHanPlayer  {
@@ -9,5 +8,9 @@ public class ChoHanPlayer  {
     public ChoHanPlayer(Player player) {
         this.name = player.getName();
         this.player = player;
+    }
+
+    public String getName() {
+        return name;
     }
 }

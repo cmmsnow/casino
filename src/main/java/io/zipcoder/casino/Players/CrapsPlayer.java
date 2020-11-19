@@ -22,4 +22,8 @@ public class CrapsPlayer  implements GamblingPlayerInterface{
     public double placeBet() {
         return 0.00;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

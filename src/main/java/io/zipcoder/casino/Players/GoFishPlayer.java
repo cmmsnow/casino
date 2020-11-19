@@ -3,8 +3,8 @@ import io.zipcoder.casino.GameSupplies.Card;
 import java.util.ArrayList;
 
 public class GoFishPlayer {
-    private String name;
-    private Player player;
+    private final String name;
+    private final Player player;
     private ArrayList<Card> hand;
 
     public GoFishPlayer(Player player) {
@@ -12,4 +12,22 @@ public class GoFishPlayer {
         this.name = player.getName();
         this.hand = new ArrayList<Card>();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
+
+
+
+
+
+
 }
