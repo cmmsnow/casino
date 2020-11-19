@@ -3,7 +3,7 @@ package io.zipcoder.casino.GameSupplies;
 import java.util.Collections;
 import java.util.Stack;
 
-public class DeckOfCards {
+public class DeckOfCards extends Stack<Card> {
 
     private Stack<Card> deckOfCards;
 
