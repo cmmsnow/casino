@@ -76,24 +76,24 @@ public class GoFish extends CardGames implements GameInterface {
         }
     }
 
-    public void playGame () {
-        //Deal starting hands, 7 cards each.
-        for (int i = 0; i < 7; i++) {
-            draw(playerHand);
-            draw(dealerHand);
-        }
-
-        while (running) {
-
-            //Check coinToss boolean, if true playerTurn first.
-            if (coinToss()) {
-                playerTurn();
-            } else dealerTurn();
-
-
-        }
-
-    }
+//    public void playGame () {
+//        //Deal starting hands, 7 cards each.
+//        for (int i = 0; i < 7; i++) {
+//            draw(playerHand);
+//            draw(dealerHand);
+//        }
+//
+//        while (running) {
+//
+//            //Check coinToss boolean, if true playerTurn first.
+//            if (coinToss()) {
+//                playerTurn();
+//            } else dealerTurn();
+//
+//
+//        }
+//
+//    }
 
 
     public void playerTurn() {

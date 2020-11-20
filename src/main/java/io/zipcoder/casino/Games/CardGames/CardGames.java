@@ -7,10 +7,7 @@ import io.zipcoder.casino.Games.GameInterface;
 import java.util.ArrayList;
 
 public class CardGames extends Card implements GameInterface {
-    /**
-     * every card game has a deck of cards
-     * every card game has a player hand and a house hand
-     */
+
     private DeckOfCards deck;
 //    private ArrayList<Card> dealerHand;
 //    private ArrayList<Card> playerHand;
@@ -22,8 +19,8 @@ public class CardGames extends Card implements GameInterface {
 //        playerHand = new ArrayList<Card>();
     }
 
-    public void playGame() {
-
+    public boolean playGame() {
+        return true;
     }
 
     public boolean endGame() {
