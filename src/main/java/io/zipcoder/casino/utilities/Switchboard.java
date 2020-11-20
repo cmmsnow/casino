@@ -1,6 +1,8 @@
 package io.zipcoder.casino.utilities;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import io.zipcoder.casino.Games.CardGames.BlackJack;
+//import io.zipcoder.casino.Games.CardGames.GoFish;
 import io.zipcoder.casino.Games.CardGames.GoFish;
 import io.zipcoder.casino.Games.DiceGames.ChoHan;
 import io.zipcoder.casino.Games.DiceGames.Craps;
@@ -66,12 +68,17 @@ public class Switchboard {
             switch (selection) {
                 case 1:
                     BlackJackPlayer blackJackPlayer = new BlackJackPlayer(currentPlayer);
-                    //BlackJack blackJack = new BlackJack(blackJackPlayer);
-                    //blackJack.playGame();
+                    BlackJack blackJack = new BlackJack(blackJackPlayer);
+                    while (!blackJack.playGame()){
+                        blackJack.playGame();
+                    }
                     break;
                 case 2:
                     GoFishPlayer goFishPlayer = new GoFishPlayer(currentPlayer);
-                    //GoFish goFish = new GoFish(goFishPlayer);
+                    GoFish goFish = new GoFish(goFishPlayer);
+                    while (!goFish.playGame()){
+                        goFish.playGame();
+                    }
                     break;
                 case 3:
                     ChoHanPlayer choHanPlayer = new ChoHanPlayer(currentPlayer);
@@ -82,7 +89,10 @@ public class Switchboard {
                     break;
                 case 4:
                     CrapsPlayer crapsPlayer = new CrapsPlayer(currentPlayer);
-                   // Craps craps = new Craps(crapsPlayer);
+                    Craps craps = new Craps(crapsPlayer);
+                    while (!craps.playGame()){
+                        craps.playGame();
+                    }
                     break;
                 case 5:
                     exit = true;
@@ -105,7 +115,10 @@ public class Switchboard {
         switch (selection) {
             case 1:
                 GoFishPlayer goFishPlayer = new GoFishPlayer(currentPlayer);
-                // GoFish goFish = new GoFish(goFishPlayer);
+                GoFish goFish = new GoFish(goFishPlayer);
+                while (!goFish.playGame()){
+                    goFish.playGame();
+                }
                 break;
             case 2:
                 ChoHanPlayer choHanPlayer = new ChoHanPlayer(currentPlayer);

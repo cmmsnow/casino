@@ -5,15 +5,6 @@ public class Output {
     Double walletAmount;
     String name;
     private static Input input = new Input(System.in,System.out);
-    /**
-     * Welcome
-     * Get user name
-     * Get user type (gambling/non)
-     * Get user wallet amt (if gambler)
-     * User Game Menu (includes all games)
-     * User Game Menu (includes only non gambling games)
-     * Quit casino goodbye
-     */
 
     public static String printToScreen(String input){
         System.out.println(input);
@@ -66,7 +57,4 @@ public class Output {
         printToScreen(printMe);
         return printMe;
     }
-
-
-
 }

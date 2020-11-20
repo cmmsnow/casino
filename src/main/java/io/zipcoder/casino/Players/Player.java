@@ -10,7 +10,6 @@ public class Player {
 
     private double wallet;
     private String name = "";
-    private HashMap<String, ArrayList<Object>> jackets;
 
     public ArrayList<Card> getHand() {
         return hand;
@@ -21,7 +20,6 @@ public class Player {
     public Player(double wallet, String name) {
         this.wallet = wallet;
         this.name = name;
-        this.jackets = new HashMap<String, ArrayList<Object>>();
     }
 
     public double getWallet() {
@@ -39,13 +37,6 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setJackets(HashMap<String, ArrayList<Object>> jackets) {
-        this.jackets = jackets;
-    }
-
-
-
 
 }
 
