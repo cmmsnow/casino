@@ -85,7 +85,10 @@ public class Switchboard {
                     break;
                 case 4:
                     CrapsPlayer crapsPlayer = new CrapsPlayer(currentPlayer);
-                   // Craps craps = new Craps(crapsPlayer);
+                    Craps craps = new Craps(crapsPlayer);
+                    while (!craps.playGame()){
+                        craps.playGame();
+                    }
                     break;
                 case 5:
                     exit = true;
