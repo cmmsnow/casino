@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//
+// adv
 public class BlackJack extends CardGames implements GamblingGameInterface {
 
     Input input = new Input(System.in, System.out);
