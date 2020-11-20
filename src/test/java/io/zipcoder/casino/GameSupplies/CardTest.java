@@ -62,7 +62,7 @@ public class CardTest {
         Card card = new Card();
         card.setSuit(Suit.DIAMONDS);
         card.setValue(Rank.EIGHT);
-        String expected = "EIGHT of DIAMONDS";
+        String expected = " EIGHT of DIAMONDS ";
         // While
         String actual = card.toString();
         // Then
