@@ -100,6 +100,7 @@ public class Craps extends DiceGames implements GamblingGameInterface {
         }
         output.printToScreen("\nGame Over!");
     }
+
     public Boolean nextRoll(Integer number) {
         Integer point = number;
         boolean out = false;

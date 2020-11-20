@@ -1,6 +1,6 @@
 package io.zipcoder.casino.Players;
 
-public class CrapsPlayer  /*implements GamblingPlayerInterface*/{
+public class CrapsPlayer  implements GamblingPlayerInterface{
     private String name;
     private Player player;
     private double wallet;
