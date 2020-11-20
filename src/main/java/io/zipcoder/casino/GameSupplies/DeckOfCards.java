@@ -16,7 +16,7 @@ public class DeckOfCards extends Stack<Card> {
         return deckOfCards;
     }
 
-    private Stack<Card> shuffleDeck() {
+    Stack<Card> shuffleDeck() {
         Collections.shuffle(deckOfCards);
         return deckOfCards;
     }
@@ -28,7 +28,7 @@ public class DeckOfCards extends Stack<Card> {
     /**
      * This code block creates the deck of cards
      */
-    private void refreshDeck() {
+    void refreshDeck() {
         Stack<Card> newDeck = new Stack<Card>();
         for (Rank r : Rank.values()) {
             for (Suit s : Suit.values()) {
