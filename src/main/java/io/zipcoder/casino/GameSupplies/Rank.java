@@ -14,9 +14,9 @@ public enum Rank {
         EIGHT(8, 8, "eight"),
         NINE(9, 9, "nine"),
         TEN(10, 10, "ten"),
-        JACK(11, 10, "jack"),
-        QUEEN(12, 10, "queen"),
-        KING(13, 10, "king");
+        JACK(11, 10, "Jack"),
+        QUEEN(12, 10, "Queen"),
+        KING(13, 10, "King");
 
         private int primaryValue;
         private int secondaryValue;
