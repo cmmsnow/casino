@@ -32,7 +32,10 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
 
 // --runs the game------------------------------------------------------------------------------------------------------
 //    @Override
-    public void playGame() {
+    public boolean playGame() {
+
+        boolean quit = false;
+
         Output.printToScreen("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
 
         while(powerOn) {
@@ -69,7 +72,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                     case 3:
                         Output.printToScreen("\n" + "Thank you for visiting!");
                         powerOn = false;
-                        break;
+                        return quit = true;
                     default:
                         Output.printToScreen("\n" + "Incorrect option chosen, please choose one of the menu options below.");
                         break;
@@ -79,6 +82,8 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
             }
 
         }
+
+        return quit;
 
     }
 
