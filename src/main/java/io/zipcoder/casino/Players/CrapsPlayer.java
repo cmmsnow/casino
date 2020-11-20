@@ -15,7 +15,9 @@ public class CrapsPlayer  /*implements GamblingPlayerInterface*/{
         return 0;
     }
 
-    public void setWallet() {
+    public void setWallet(double amount) {
+        this.wallet = amount;
+        player.setWallet(amount);
 
     }
 
