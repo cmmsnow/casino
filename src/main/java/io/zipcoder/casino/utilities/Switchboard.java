@@ -17,18 +17,18 @@ public class Switchboard {
     Boolean isGambler;
     Double wallet;
     Player currentPlayer;
+    Boolean exit = false;
     public Switchboard(){}
 
     public void runMenu() {
         this.currentPlayer = setPlayer();
-        if(isGambler) {
-                runGambler();
+        if (isGambler) {
+            runGambler();
+        } else {
+            runNonGambler();
         }
-        else {
-               runNonGambler();
-            }
         output.goodBye();
-        }
+    }
 
 
     public Player setPlayer(){
@@ -56,14 +56,15 @@ public class Switchboard {
         return selection;
     }
 
-    public void runGambler(){
-        while(!gamblerMenuSorter()){
-            gamblerMenuSorter();
+    public Boolean runGambler(){
+        while(!exit){
+            exit = gamblerMenuSorter();
         }
+        return true;
     }
 
     public Boolean gamblerMenuSorter(){
-        Boolean exit = false;
+        exit = false;
             Integer selection = gameChoice();
             switch (selection) {
                 case 1:
@@ -104,13 +105,14 @@ public class Switchboard {
             }
             return exit;
     }
-    public void runNonGambler(){
-        while(!nonGamblerMenuSorter()){
-            nonGamblerMenuSorter();
+    public Boolean runNonGambler(){
+        while(!exit){
+            exit = nonGamblerMenuSorter();
         }
+        return true;
     }
     public Boolean nonGamblerMenuSorter(){
-        Boolean exit = false;
+        exit = false;
         Integer selection = gameChoice();
         switch (selection) {
             case 1:

@@ -10,29 +10,25 @@ import java.util.Scanner;
 public class Craps extends DiceGames implements GamblingGameInterface {
     private CrapsPlayer crapsPlayer;
     private Output output = new Output();
-    private boolean gameRuns = true;
-    private boolean tossAndSum;
     private double currentWager = 0;
+    boolean quit = false;
     public Scanner hold = new Scanner(System.in);
     public Dice dice = new Dice(2);
     Input input = new Input(System.in, System.out);
-    public void pause() {
-        System.out.println("\nPlease press Enter to roll dice again...");
-        hold.nextLine();
-    }
+    Scanner scanner = new Scanner(System.in);
+
     public Craps(CrapsPlayer crapsPlayer) {
         this.crapsPlayer = crapsPlayer;
     }
-    public double bet(double betVal) {
-        return betVal;
+
+    public void pause() {
+        System.out.println("\nPlease press Enter to roll dice...");
+        hold.nextLine();
     }
-    Scanner scanner = new Scanner(System.in);
+
     public boolean playGame() {
-        boolean quit = false;
-        output.printToScreen("\nWelcome to the Craps table " + crapsPlayer.getName() + "!");
-        while (gameRuns) {
-            //need to implement the wagering somehow
-            output.printToScreen("\nLet's start the game! You want to roll a 7 or 11\n" +
+        while (!quit) {
+            output.printToScreen("\nWelcome to the Craps table " + crapsPlayer.getName() + "!\nLet's start the game! You want to roll a 7 or 11\n" +
                     "\nPress 1 to roll the Dice\n" +
                     "Press 2 to return to the Casino Floor\n" +
                     "--------------------------------------\n");
@@ -58,8 +54,7 @@ public class Craps extends DiceGames implements GamblingGameInterface {
         return quit;
     }
     public void takeBet() {
-        double betInput = 0.0;
-        betInput = input.getDoubleInput("\nEnter the amount you would like to bet here -> ");
+        double betInput = input.getDoubleInput("\nEnter the amount you would like to bet here -> ");
         if (betInput > crapsPlayer.getWallet()) {
             Output.printToScreen("\nYou do not have enough to cover that bet.");
             takeBet();
@@ -69,42 +64,35 @@ public class Craps extends DiceGames implements GamblingGameInterface {
             setCurrentWager(betInput);
         }
     }
-    public double bet() {
-        return 0;
-    }
-    public void setCurrentWager(double wager){
-        this.currentWager = wager;
-    }
+    public void setCurrentWager(double wager){ this.currentWager = wager; }
     public double getCurrentWager(){
         return this.currentWager;
     }
     public double payOut() {
-        return 0;
+        crapsPlayer.setWallet(crapsPlayer.getWallet() + (2 * getCurrentWager()));
+        return 2 * getCurrentWager();
     }
     public void rollDice() {
-        // Integer roll = firstRoll();
-        String message = " ";
+        pause();
         Integer firstRoll = dice.tossAndSum(2);
         Output.printToScreen("\nDice sum: " + firstRoll);
         if (firstRoll == 7 || firstRoll == 11) {
-            output.printToScreen("\nCongrats you win! Good roll");
-            message = "\nCongrats you win! Good roll";
+            output.printToScreen("\nCongrats you win! Good roll!\nGame Over!");
+            payOut();
+            Output.printToScreen("Your current wallet balance is: " + crapsPlayer.getWallet());
         } else if (firstRoll == 2 || firstRoll == 3 || firstRoll == 12) {
             output.printToScreen("\nSorry you rolled a " + firstRoll + " you lose!");
-            message = "\nSorry you rolled a " + firstRoll + " you lose!";
+            Output.printToScreen("Your current wallet balance is: " + crapsPlayer.getWallet() + "\nGame Over!");
         } else {
             Integer point = firstRoll; //4, 5, 6, 8, 9, 10 depending on roll
             output.printToScreen("\nNow you want to roll a " + point + " to win! You lose with 7 or 11.");
-            message = "\nNow you want to roll a " + point + " to win! You lose with 7 or 11.";
             nextRoll(firstRoll);
         }
-        output.printToScreen("\nGame Over!");
     }
 
     public Boolean nextRoll(Integer number) {
         Integer point = number;
         boolean out = false;
-        boolean win = false;
         pause();
         Integer secondRoll = dice.tossAndSum(2);
         output.printToScreen("\nDice Sum: " + secondRoll);
@@ -113,17 +101,17 @@ public class Craps extends DiceGames implements GamblingGameInterface {
             pause();
             secondRoll = dice.tossAndSum(2);
             output.printToScreen("\nYou rolled " + secondRoll);
-        }
-        if (secondRoll == 7 || secondRoll == 11) {
-            output.printToScreen("\nSorry you rolled a " + secondRoll + "! Try again.");
+        } if (secondRoll == 7 || secondRoll == 11) {
+            output.printToScreen("\nSorry you rolled a " + secondRoll + " you lose!");
+            Output.printToScreen("Your current wallet balance is: " + crapsPlayer.getWallet() + "\nGame Over!");
             out = true;
             //lose statement, wallet decrease
         } else if (secondRoll == point) {
             output.printToScreen("\nYou win! You rolled a " + secondRoll);
             out = true;
-            win = true;
-            //need win statement and wallet increase
+            payOut();
+            Output.printToScreen("Your current wallet balance is: " + crapsPlayer.getWallet() + "\nGame Over!");
         }
-        return win;
+        return out;
     }
 }
