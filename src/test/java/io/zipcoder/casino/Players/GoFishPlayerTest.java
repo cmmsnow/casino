@@ -39,12 +39,12 @@ public class GoFishPlayerTest {
         Assert.assertEquals(playa, actual);
     }
 
-    @Test
-    public void getHandTest() {
-        Player playa = new Player(50.0, "Dolphin");
-        ArrayList<Card> hand = new ArrayList<Card>();
-        GoFishPlayer gfPlayer = new GoFishPlayer(playa);
-        ArrayList<Card> actual = gfPlayer.getHand();
-        Assert.assertEquals(hand, actual);
-    }
+//    @Test
+//    public void getHandTest() {
+//        Player playa = new Player(50.0, "Dolphin");
+//        ArrayList<Card> hand = new ArrayList<Card>();
+//        GoFishPlayer gfPlayer = new GoFishPlayer(playa);
+//        ArrayList<Card> actual = gfPlayer.getHand();
+//        Assert.assertEquals(hand, actual);
+//    }
 }

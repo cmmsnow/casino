@@ -10,11 +10,7 @@ public class Player {
 
     private double wallet;
     private String name = "";
-    private ArrayList<Card> hand;
-
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
+    private final ArrayList<Card> hand;
 
     public Player(double wallet, String name) {
         this.wallet = wallet;
@@ -38,5 +34,8 @@ public class Player {
         this.name = name;
     }
 
+    public ArrayList<Card> getHand() {
+        return hand;
+    }
 }
 
