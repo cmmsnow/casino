@@ -10,16 +10,16 @@ public class Player {
 
     private double wallet;
     private String name = "";
+    private ArrayList<Card> hand;
 
     public ArrayList<Card> getHand() {
         return hand;
     }
 
-    private ArrayList<Card> hand;
-
     public Player(double wallet, String name) {
         this.wallet = wallet;
         this.name = name;
+        hand = new ArrayList<Card>();
     }
 
     public double getWallet() {
