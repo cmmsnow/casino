@@ -77,6 +77,22 @@ public class GoFish extends CardGames implements GameInterface {
         }
     }
 
+    public void coinToss() {
+
+        int toss = (int) (Math.floor(Math.random() * 2));
+        int choice = io.getIntegerInput("\n\nChoose heads or tails:\n" +
+                "1: Heads\n2: Tails\n");
+
+        if (choice - 1 == toss) {
+            Output.printToScreen("\n\nYou won the coin toss, you get first turn.\n");
+            pause();
+            playerTurn();
+        } else {
+            Output.printToScreen("\n\nThe dealer won the coin toss, they get first turn.\n");
+            pause();
+            dealerTurn();
+        }
+    }
 
     public void startingDeal() {
         //Deal starting hands, 7 cards each.
@@ -92,23 +108,25 @@ public class GoFish extends CardGames implements GameInterface {
         boolean askAgain = true;
         int choice = 0;
         String askingCard = "";
+
+        checkGameOver();
         io.getOutput().println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Your Turn~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         io.getOutput().print(deckCardsLeft());
-        io.getOutput().printf("Player has: %d books\nDealer has: %d books\n", playerBooks, dealerBooks);
+        io.getOutput().printf("Player has: %d books\nDealer has: %d books\n\n", playerBooks, dealerBooks);
 
         while (askAgain) {
             askAgain = false;
 
             //Display hand, check for book from deal and ask which card to go fishing for.
             printHand(playerHand);
-            bookFound("Nice you formed a book!");
+            bookFound();
 
-            choice = io.getIntegerInput("Which card would you like to fish for?");
+            choice = io.getIntegerInput("Which card would you like to fish for?\n");
 
             while (choice > playerHand.size() || choice == 0) {
                 io.getOutput().println("Please make an appropriate choice.");
                 printHand(playerHand);
-                choice = io.getIntegerInput("Which card would you like to fish for?");
+                choice = io.getIntegerInput("\nWhich card would you like to fish for?");
             }
 
             askingCard = playerHand.get(choice - 1).getValue().getThirdValue();
@@ -119,37 +137,29 @@ public class GoFish extends CardGames implements GameInterface {
             io.getOutput().println(playerFishing(askingCard));
 
             //checkBook;
-            bookFound("Nice you formed a book!\n");
-            io.getOutput().printf("Player has: %d books\nDealer has: %d books\n", playerBooks, dealerBooks);
+            bookFound();
 
             //If caughtFish>0 askAgain=true, else player draws
             // from deck and if they draw a fish askAgain = true
             if (caughtFish > 0) {
                 askAgain = true;
-                io.getOutput().println("Looks like you caught some fishies, have another go!");
-
-                bookFound("Nice you formed a book!");
+                io.getOutput().println("\nLooks like you caught some fishies, have another go!\n");
                 pause();
+                playerTurn();
             } else {
-                io.getOutput().println("Dealer Says: Go Fish!");
+                io.getOutput().println("\nDealer Says: Go Fish!\n");
                 pause();
                 drawnCard = draw(playerHand);
-                io.getOutput().printf("You drew a %s\n\n", drawnCard.getValue().getThirdValue());
+                bookFound();
+                io.getOutput().printf("\nYou drew a %s\n\n", drawnCard.getValue().getThirdValue());
                 if (drawnCard.getValue().getThirdValue().equals(askingCard)) {
                     askAgain = true;
-                    io.getOutput().printf("Since, you drew a %s, you get to go again!", askingCard);
+                    io.getOutput().printf("\nSince, you drew a %s, you get to go again!\n", askingCard);
+                    playerTurn();
                 }
             }
+            checkGameOver();
             dealerTurn();
-        }
-    }
-
-    private void bookFound(String s) {
-        if (checkBooks(playerHand)) {
-            io.getOutput().printf("%s\nPlayer has: %d books\nDealer has: %d books\n",
-                    s, playerBooks, dealerBooks);
-            playerBooks++;
-            printHand(playerHand);
         }
     }
 
@@ -157,18 +167,16 @@ public class GoFish extends CardGames implements GameInterface {
         playerTurn = false;
         boolean askAgain = true;
         String askingCard;
+        checkGameOver();
         printHand(playerHand);
-        io.getOutput().println("\"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Dealer Turn~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\"");
-        io.getOutput().println(deckCardsLeft()+"\n");
+        io.getOutput().println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Dealer Turn~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        io.getOutput().println(deckCardsLeft() + "\n");
         io.getOutput().printf("Player has: %d books\nDealer has: %d books\n", playerBooks, dealerBooks);
 
         while (askAgain) {
 
-            //check for dealerBook from deal and ask player for card before taking it
-            if (checkBooks(dealerHand)) {
-                io.getOutput().println("Dealer formed a book!");
-                dealerBooks++;
-            }
+            //check for dealerBook from deal
+            bookFound();
             askingCard = dealerAsk();
 
             //Fishing method sets caughtFish and prints return statement of how many fish caught
@@ -176,29 +184,30 @@ public class GoFish extends CardGames implements GameInterface {
             pause();
             io.getOutput().println(dealerFishing(askingCard));
 
-            if (checkBooks(dealerHand)) {
-                io.getOutput().println("Dealer formed a book!");
-                dealerBooks++;
-            }
+            bookFound();
 
             if (caughtFish > 0) {
                 askAgain = true;
                 io.getOutput().println("Looks like Dealer caught some fishies, they get to have another go!");
                 pause();
+                dealerTurn();
             } else {
-                io.getOutput().println("You Say: you will have to go fishing sir.");
+                io.getOutput().println("You Say: You will have to go fishing sir.");
                 pause();
                 drawnCard = draw(dealerHand);
                 io.getOutput().printf("Dealer drew a %s\n\n", drawnCard.getValue().getThirdValue());
+                bookFound();
                 if (drawnCard.getValue().getThirdValue().equals(askingCard)) {
                     askAgain = true;
-                    io.getOutput().printf("Dealer drew a %s, dealer gets to go again!", drawnCard.getValue().getThirdValue());
+                    io.getOutput().printf("Dealer drew a %s, dealer gets to go again!\n", drawnCard.getValue().getThirdValue());
+                    pause();
+                    dealerTurn();
                 } else {
                     askAgain = false;
                 }
             }
-            io.getOutput().print(deckCardsLeft());
         }
+        checkGameOver();
         playerTurn();
     }
 
@@ -240,30 +249,8 @@ public class GoFish extends CardGames implements GameInterface {
                 caughtFish, askingCard);
     }
 
-    public void printHand(ArrayList<Card> hand) {
-        int handIndex = 0;
-        for (Card c : hand) {
-            io.getOutput().printf((handIndex + 1) + ": %s of %s\n", c.getValue().getThirdValue(), c.getSuit());
-            handIndex++;
-        }
-    }
 
-    public Card draw(ArrayList<Card> hand) {
-        Card drawn = this.deck.pop();
-        hand.add(drawn);
-        return drawn;
-    }
-
-
-    public String deckCardsLeft() {
-        return String.format("\nThere are %d cards left in the deck.\n\n", deck.size());
-    }
-
-    public void pause() {
-        io.getOutput().println("\nPress Enter to continue...");
-        io.getInput().nextLine();
-    }
-
+    //Check book and check win methods
     public boolean checkBooks(ArrayList<Card> hand) {
         Integer count;
         boolean bookFound = false;
@@ -274,7 +261,7 @@ public class GoFish extends CardGames implements GameInterface {
             count = map.get(c.getValue().getThirdValue());
             map.put(c.getValue().getThirdValue(), count == null ? 1 : count + 1);
 
-            if (count != null && count == 4) {
+            if (count != null && count == 3) {
                 found = c.getValue().getThirdValue();
                 bookFound = true;
             }
@@ -286,10 +273,35 @@ public class GoFish extends CardGames implements GameInterface {
                 if (c.getValue().getThirdValue().equals(found)) {
                     it.remove();
                 }
-
             }
         }
         return bookFound;
+    }
+
+    private boolean bookFound() {
+        if (playerTurn) {
+            if (checkBooks(playerHand)) {
+                playerBooks++;
+                io.getOutput().println("Nice you made a book!");
+                pause();
+                io.getOutput().printf("Player has: %d books\nDealer has: %d books\n",
+                         playerBooks, dealerBooks);
+                printHand(playerHand);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (checkBooks(dealerHand)) {
+                dealerBooks++;
+                io.getOutput().println("The Dealer made a book.");
+                io.getOutput().printf("\nPlayer has: %d books\nDealer has: %d books\n",
+                         playerBooks, dealerBooks);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public boolean checkGameOver() {
@@ -304,10 +316,10 @@ public class GoFish extends CardGames implements GameInterface {
     public void checkWinner() {
         if (playerBooks > dealerBooks) {
             io.getOutput().printf("You have %d books and dealer has %d books.\n" +
-                    "Looks like you won this game!!!\n...Ya simple bitch!!!", playerBooks, dealerBooks);
+                    "Looks like you won this game!!!\n", playerBooks, dealerBooks);
         } else if (dealerBooks > playerBooks) {
             io.getOutput().printf("You have %d books and dealer has %d books.\n" +
-                    "Looks like you lost this game!!!\n...Ya simple bitch!!!", playerBooks, dealerBooks);
+                    "Looks like you lost this game!!!\n", playerBooks, dealerBooks);
         } else {
             io.getOutput().printf("You have %d books and dealer has %d books.\n" +
                     "Looks like a tie game!!!\n...Thanks for wasting my time.", playerBooks, dealerBooks);
@@ -315,29 +327,32 @@ public class GoFish extends CardGames implements GameInterface {
     }
 
 
-    public void incrementPlayerBooks() {
-        this.playerBooks++;
-    }
-
-    public void incrementDealerBooks() {
-        this.dealerBooks++;
-    }
-
-    public void coinToss() {
-
-        int toss = (int) (Math.floor(Math.random() * 2));
-        int choice = io.getIntegerInput("\n\nChoose heads or tails:\n" +
-                "1: Heads\n2: Tails\n");
-
-        if (choice - 1 == toss) {
-            Output.printToScreen("\n\nYou won the coin toss, you get first turn.\n");
-            pause();
-            playerTurn();
-        } else {
-            Output.printToScreen("\n\nThe dealer won the coin toss, they get first turn.\n");
-            pause();
-            dealerTurn();
+    //Utility Methods
+    public void printHand(ArrayList<Card> hand) {
+        int handIndex = 0;
+        io.getOutput().println("\n*****************************************************\n");
+        for (Card c : hand) {
+            io.getOutput().printf((handIndex + 1) + ": %s of %s\n", c.getValue().getThirdValue(), c.getSuit());
+            handIndex++;
         }
+        io.getOutput().println("\n*****************************************************\n");
     }
 
+    public void pause() {
+        io.getOutput().println("\nPress Enter to continue...");
+        io.getInput().nextLine();
+    }
+
+    public Card draw(ArrayList<Card> hand) {
+        Card drawn = null;
+        if (deck.size() > 0) {
+            drawn = this.deck.pop();
+            hand.add(drawn);
+        }
+        return drawn;
+    }
+
+    public String deckCardsLeft() {
+        return String.format("\nThere are %d cards left in the deck.\n\n", deck.size());
+    }
 }
