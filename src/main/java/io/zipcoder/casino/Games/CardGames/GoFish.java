@@ -13,6 +13,7 @@ import java.util.*;
 public class GoFish extends CardGames implements GameInterface {
 
     private final GoFishPlayer goFishPlayer;
+    private final Player dealer;
     private final Stack<Card> deck;
     private final ArrayList<Card> playerHand;
     private final ArrayList<Card> dealerHand;
@@ -28,7 +29,7 @@ public class GoFish extends CardGames implements GameInterface {
 
     public GoFish(GoFishPlayer goFishPlayer) {
         this.goFishPlayer = goFishPlayer;
-        Player dealer = new Player(0.0, "Dealer");
+        this.dealer = new Player(0.0, "Dealer");
         this.deck = new DeckOfCards().getDeck();
         this.dealerHand = dealer.getHand();
         this.playerHand = goFishPlayer.getPlayer().getHand();
@@ -147,15 +148,17 @@ public class GoFish extends CardGames implements GameInterface {
                 pause();
                 playerTurn();
             } else {
-                io.getOutput().println("\nDealer Says: Go Fish!\n");
-                pause();
-                drawnCard = draw(playerHand);
-                bookFound();
-                io.getOutput().printf("\nYou drew a %s\n\n", drawnCard.getValue().getThirdValue());
-                if (drawnCard.getValue().getThirdValue().equals(askingCard)) {
-                    askAgain = true;
-                    io.getOutput().printf("\nSince, you drew a %s, you get to go again!\n", askingCard);
-                    playerTurn();
+                if (deck.size() > 0) {
+                    io.getOutput().println("\nDealer Says: Go Fish!\n");
+                    pause();
+                    drawnCard = draw(playerHand);
+                    bookFound();
+                    io.getOutput().printf("\nYou drew a %s\n\n", drawnCard.getValue().getThirdValue());
+                    if (drawnCard.getValue().getThirdValue().equals(askingCard)) {
+                        askAgain = true;
+                        io.getOutput().printf("\nSince, you drew a %s, you get to go again!\n", askingCard);
+                        playerTurn();
+                    }
                 }
             }
             checkGameOver();
@@ -192,18 +195,20 @@ public class GoFish extends CardGames implements GameInterface {
                 pause();
                 dealerTurn();
             } else {
-                io.getOutput().println("You Say: You will have to go fishing sir.");
-                pause();
-                drawnCard = draw(dealerHand);
-                io.getOutput().printf("Dealer drew a %s\n\n", drawnCard.getValue().getThirdValue());
-                bookFound();
-                if (drawnCard.getValue().getThirdValue().equals(askingCard)) {
-                    askAgain = true;
-                    io.getOutput().printf("Dealer drew a %s, dealer gets to go again!\n", drawnCard.getValue().getThirdValue());
+                if (deck.size() > 0) {
+                    io.getOutput().println("You Say: You will have to go fishing sir.");
                     pause();
-                    dealerTurn();
-                } else {
-                    askAgain = false;
+                    drawnCard = draw(dealerHand);
+                    io.getOutput().printf("Dealer drew a %s\n\n", drawnCard.getValue().getThirdValue());
+                    bookFound();
+                    if (drawnCard.getValue().getThirdValue().equals(askingCard)) {
+                        askAgain = true;
+                        io.getOutput().printf("Dealer drew a %s, dealer gets to go again!\n", drawnCard.getValue().getThirdValue());
+                        pause();
+                        dealerTurn();
+                    } else {
+                        askAgain = false;
+                    }
                 }
             }
         }
@@ -285,7 +290,7 @@ public class GoFish extends CardGames implements GameInterface {
                 io.getOutput().println("Nice you made a book!");
                 pause();
                 io.getOutput().printf("Player has: %d books\nDealer has: %d books\n",
-                         playerBooks, dealerBooks);
+                        playerBooks, dealerBooks);
                 printHand(playerHand);
                 return true;
             } else {
@@ -296,7 +301,7 @@ public class GoFish extends CardGames implements GameInterface {
                 dealerBooks++;
                 io.getOutput().println("The Dealer made a book.");
                 io.getOutput().printf("\nPlayer has: %d books\nDealer has: %d books\n",
-                         playerBooks, dealerBooks);
+                        playerBooks, dealerBooks);
                 return true;
             } else {
                 return false;
@@ -328,7 +333,7 @@ public class GoFish extends CardGames implements GameInterface {
 
 
     //Utility Methods
-    public void printHand(ArrayList<Card> hand) {
+    public int printHand(ArrayList<Card> hand) {
         int handIndex = 0;
         io.getOutput().println("\n*****************************************************\n");
         for (Card c : hand) {
@@ -336,6 +341,7 @@ public class GoFish extends CardGames implements GameInterface {
             handIndex++;
         }
         io.getOutput().println("\n*****************************************************\n");
+        return handIndex;
     }
 
     public void pause() {
@@ -354,5 +360,19 @@ public class GoFish extends CardGames implements GameInterface {
 
     public String deckCardsLeft() {
         return String.format("\nThere are %d cards left in the deck.\n\n", deck.size());
+    }
+
+    //Getters for testing
+
+    public ArrayList<Card> getDealerHand() {
+        return dealerHand;
+    }
+
+    public ArrayList<Card> getPlayerHand() {
+        return playerHand;
+    }
+
+    public Player getDealer() {
+        return dealer;
     }
 }
