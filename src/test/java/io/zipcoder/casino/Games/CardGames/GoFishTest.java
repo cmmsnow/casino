@@ -38,11 +38,23 @@ class GoFishTest {
     }
 
     @Test
-    void coinToss() {
-    }
-
-    @Test
     void startingDeal() {
+        //Give
+        int expected1 = goFish.getPlayerHand().size();
+        int expected2 = goFish.getDealerHand().size();
+
+        //When
+        goFish.startingDeal();
+        int actual1 = goFish.getPlayerHand().size();
+        int actual2 = goFish.getDealerHand().size();
+
+        //Then
+        assertEquals(expected1, expected2);
+        assertEquals(actual1, actual2);
+        assertEquals(expected1, 0);
+        assertEquals(expected2, 0);
+        assertEquals(actual1, 7);
+        assertEquals(actual2, 7);
     }
 
     @Test
