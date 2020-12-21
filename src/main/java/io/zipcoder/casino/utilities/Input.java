@@ -58,5 +58,13 @@ public final class Input {
     public Integer getIntegerInput(String prompt, Object... args) {
         return getLongInput(prompt, args).intValue();
     }
+
+    public Scanner getInput() {
+        return input;
+    }
+
+    public PrintStream getOutput() {
+        return output;
+    }
 }
 
