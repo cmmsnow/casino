@@ -224,6 +224,7 @@ public class GoFish extends CardGames implements GameInterface {
     }
 
     public String playerFishing(String askingCard) {
+        if (askingCard.equals("quite")) running = false;
         caughtFish = 0;
         Iterator<Card> it = dealerHand.iterator();
 
