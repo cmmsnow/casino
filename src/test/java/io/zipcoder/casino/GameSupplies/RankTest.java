@@ -8,14 +8,6 @@ import org.junit.Test;
 public class RankTest {
 
     @Test
-    public void TestRank(){
-//        Card card = new Card();
-//        card.setSuit(Suit.DIAMONDS);
-//        Rank rank = new Rank(8, 8, "EIGHT");
-//        card.setValue(rank);
-    }
-
-    @Test
     public void TestGetPrimaryValue(){
         Card card = new Card();
         card.setSuit(Suit.DIAMONDS);
