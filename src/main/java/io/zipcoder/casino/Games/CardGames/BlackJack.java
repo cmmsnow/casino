@@ -11,9 +11,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BlackJack extends CardGames implements GamblingGameInterface {
-
     Input input = new Input(System.in, System.out);
-    Scanner scanner = new Scanner(System.in);
+    BlackJackMenu blackJackMenu = new BlackJackMenu();
 
     private BlackJackPlayer blackJackPlayer;
     private ArrayList<Card> dealersHand;
@@ -37,12 +36,7 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         Output.printToScreen("\nWelcome to Blackjack " + blackJackPlayer.getName() + "!!!");
 
         while(powerOn) {
-            Output.printToScreen("\nPlease select from the following options:\n" +
-                    "1 - Play a game of Blackjack\n" +
-                    "2 - See how much is in your wallet\n" +
-                    "3 - Quit Blackjack\n" +
-                    "---------------------------------\n");
-
+            blackJackMenu.run();
             int input1 = input.getIntegerInput("Enter choice here -> ");
 
             try {
@@ -54,7 +48,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                         handSum(); // BlackJackPlayer now has a hand of cards, need to evaluate the hand and then decide what to do
                         firstShow(); // Show results of the first round of cards
                         playerHitOrStand();
-
                         // ***** if player game state is under run dealer Hit or Stand
                         if (playerStateOfGame().equals(stateOfGame.UNDER)) {
                             dealerHitOrStand();
@@ -62,7 +55,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
                                 winConditions(); // evaluate dealer and blackjack player hands
                             }
                         }
-
                         break;
                     case 2:
                         Output.printToScreen("Your current wallet balance is: " + blackJackPlayer.getWallet());
@@ -78,11 +70,9 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
             } catch (InputMismatchException e) {
                 Output.printToScreen("\n" + "Incorrect option chosen, please choose one of the menu options below.");
             }
-
         }
 
         return quit;
-
     }
 
 // --shows result of first set of cards that were dealt, dealer shows one card------------------------------------------
@@ -126,7 +116,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
         }
         return answer;
     }
-
 
 // --based on first set of cards player and dealer decide what to do----------------------------------------------------
     public void playerHitOrStand() { // player hit or stand
@@ -242,7 +231,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
             setCurrentWager(betInput);
         }
     }
-
     public double bet() {
         return 0;
     }
@@ -253,12 +241,6 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
             dealersHand.add(getDeck().dealCard());
             blackJackPlayer.getBlackJackPlayerHand().add(getDeck().dealCard());
         }
-    }
-
-// --need to incorporate this method------------------------------------------------------------------------------------
-    @Override
-    public boolean endGame() {
-        return false;
     }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -291,38 +273,9 @@ public class BlackJack extends CardGames implements GamblingGameInterface {
     public void setPowerOn(boolean powerOn) {
         this.powerOn = powerOn;
     }
+
+    public Integer getPlayerTotal() {
+        return this.playerTotal;
+    }
+
 }
-
-
-
-
-// ---------------------------------------------------------------------------------------------------------------------
-//    public Integer getPlayerTotal() {
-//        return playerTotal;
-//    }
-//
-//    public void setPlayerTotal(Integer playerTotal) {
-//        this.playerTotal = playerTotal;
-//    }
-//
-//    public Integer getDealerTotal() {
-//        return dealerTotal;
-//    }
-//
-//    public void setDealerTotal(Integer dealerTotal) {
-//        this.dealerTotal = dealerTotal;
-//    }
-//    public boolean isHitCheck() {
-//        return hitCheck;
-//    }
-//
-//    public void setHitCheck(boolean hitCheck) {
-//        this.hitCheck = hitCheck;
-//    }
-//    public void winConditions() {
-//        if (playerTotal > 21) {
-//            Output.printToScreen("DEALER WINS");
-//            Output.printToScreen("PLAYER BUSTS");
-//
-//        }
-//    }
